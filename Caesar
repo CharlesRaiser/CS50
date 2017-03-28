@@ -1,0 +1,63 @@
+#include <stdio.h>
+#include <string.h>
+#include <cs50.h>
+#include <ctype.h>
+#include <math.h>
+
+//function declaration
+void ceaser_shift(string encrypt, int k);
+
+//take single commandline argument
+int main(int argc, string argv[])
+{
+    if(argc == 2)
+    {
+        //convert commandline string to integer k
+        int k = atoi(argv[1]);
+
+        //request plaintext and store in a string named encrypt
+        printf("plaintext: ");
+        string encrypt = get_string();
+        
+        //shift encrypt by k
+        ceaser_shift(encrypt, k);
+        
+        //print ciphertext
+        printf("ciphertext: %s\n", encrypt);
+        
+        return 0;
+    }
+    
+    else
+    {
+        //print error
+        printf("missing command-line argument\n");
+        
+        return 1;
+    }
+}
+
+//function definition
+
+void ceaser_shift(string encrypt, int k)
+{
+     //for i up to string length of command line argument increment i
+        for (int i = 0; i < strlen(encrypt); i++)
+        {
+            //check if alphabetical
+            if(isalpha(encrypt[i]))
+            {
+                //check if is lower and greater than z then wrap
+                if(islower(encrypt[i]))
+                {
+                    encrypt[i] = (encrypt[i] - 'a' + k) % 26 + 'a';
+                }
+    
+                //check if is upper and greater than z then wrap
+                else if(isupper(encrypt[i]))
+                {
+                    encrypt[i] = (encrypt[i] - 'A' + k) % 26 + 'A';
+                }
+            }
+        }
+}
