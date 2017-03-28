@@ -1,0 +1,50 @@
+#include<cs50.h>
+#include<stdio.h>
+#include<math.h>
+
+int coin_conversion(float input);
+
+int main()
+{
+    float change_owed;
+    int minimum;
+    
+    while(true)
+    {
+        printf("How much change is owed?");
+        change_owed = get_float();
+    
+        if(change_owed >= 0)
+        {
+            minimum = coin_conversion(change_owed);
+            printf("%.1i\n", minimum);
+            return false;
+        }
+        else
+        {
+            printf("Please provide a non-negative value.\n");
+        }
+    }
+}
+
+int coin_conversion(float input)
+{
+    int coins[4]={25, 10, 5, 1};
+    int sum_total=0;
+    int sum;
+    int change=round(input * 100);
+    int index=0;
+    
+    while(index < 4)
+    {
+        if(coins[index] > change)
+        {
+            index++;
+            continue;
+        };
+        sum=change/coins[index];
+        sum_total=sum_total+sum;
+        change=change-(coins[index]*sum);
+    }
+    return sum_total;
+}
