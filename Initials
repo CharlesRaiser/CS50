@@ -1,0 +1,58 @@
+#include <stdio.h>
+#include <string.h>
+#include <cs50.h>
+#include <ctype.h>
+
+//function declaration
+void initial_function(string initials);
+
+int main(void)
+{
+    // retrieve string from user
+    string initials = get_string();
+    
+    // check for null in string 
+    if (initials != NULL)
+    {
+        initial_function(initials);
+    }
+    
+    //else print error
+    else 
+    {
+        printf("string error");
+    }
+}
+
+//function definition
+void initial_function(string initials)
+{
+    int i = 0;
+    
+    //itterate over any space in begining of string
+    while(initials[i] == ' ')
+    {
+        i++;
+    }
+    
+    //print first character of string        
+    printf("%c", toupper(initials[i]));
+    
+    //begin itterating over remaining string    
+    for(i += 1; i < strlen(initials); i++)
+    {   
+        //if a space is found move to next cell
+        if (initials[i] == ' ')
+        {
+            i++;
+        
+            if(initials[i] != ' ')
+            {
+            //if next cell is not a space, print character
+            printf("%c", toupper(initials[i]));
+            }
+        }
+    }
+    //print new line
+    printf("\n");
+}
