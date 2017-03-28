@@ -1,0 +1,78 @@
+#include <stdio.h>
+#include <string.h>
+#include <cs50.h>
+#include <ctype.h>
+#include <math.h>
+
+//function declaration
+void vigenere_shift(string key, string encrypt);
+
+int main(int argc, string argv[])
+{
+    if(argc == 2)
+    {
+        //convert commandline string to string named key
+        string key = argv[1];
+        
+        //check key string character by character
+        for(int a = 0; a < strlen(key); a++)
+        {
+            //if current character in key is not alpha exit by error
+            if(!isalpha(key[a]))
+            {
+                printf("string error - only input characters");
+                
+                return 1;
+            }
+        }
+    
+        //request plaintext from user and store in a string named encrypt
+        printf("plaintext: ");
+        string encrypt = get_string();
+        
+        //vigenere shift encrypt by key
+        vigenere_shift(key, encrypt);
+    
+        //print ciphertext
+        printf("ciphertext: %s\n", encrypt);
+        
+        return 0;
+    }
+    
+    else
+    {
+        //print error
+        printf("missing command-line argument\n");
+        
+        return 1;
+    }
+}
+
+//function definition
+void vigenere_shift(string key, string encrypt)
+{
+    //increment through plaintext string
+        for(int i = 0, j = 0; i < strlen(encrypt); i++)
+        {
+            //convert current key poition to lowercase and wrap
+            int keyshift = tolower(key[j % strlen(key)]) - 'a';
+                
+            //check if plaintext character is lower and shift
+            if(islower(encrypt[i]))
+            {
+                    encrypt[i] = ((encrypt[i] - 'a') + keyshift) % 26 + 'a';
+                    
+                    //increment j
+                    j++;
+            }
+    
+            //check if plaintext character is upper and shift
+            else if(isupper(encrypt[i]))
+            {
+                    encrypt[i] = ((encrypt[i] - 'A') + keyshift) % 26 + 'A';
+                    
+                    //increment j
+                    j++;
+            }
+        }
+}
