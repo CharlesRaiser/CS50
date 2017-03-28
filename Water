@@ -1,0 +1,16 @@
+#include <cs50.h>
+#include <stdio.h>
+
+int shower_conversion (int minutes);
+
+int main(void)
+{
+    printf("Enter the amount of minutes you shower for: ");
+    int minutes = get_int();
+    printf("You use %d bottles of water every time you shower.\n", shower_conversion(minutes));
+}
+
+int shower_conversion (int minutes)
+{
+    return minutes * 1.5 * 128 / 16;
+}
